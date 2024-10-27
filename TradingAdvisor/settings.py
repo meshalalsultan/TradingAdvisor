@@ -12,6 +12,13 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os 
+from dotenv import load_dotenv
+
+# تحميل المتغيرات من ملف .env
+load_dotenv()
+
+# استخدام مفتاح OpenAI API من متغيرات البيئة
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.

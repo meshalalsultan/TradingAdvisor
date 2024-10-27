@@ -15,12 +15,13 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path , include
-from . import views
+from django.urls import path, include
+from users import views as user_views  # تعديل الاستيراد لمطابقة التطبيق الصحيح
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('dashboard/', views.dashboard, name='dashboard'),
-    path('user_profile/', views.UserProfile, name='UserProfile'),
-
+    path('dashboard/', user_views.dashboard, name='dashboard'),
+    path('user_profile/', user_views.collect_user_data, name='collect_user_data'),  # لتجميع بيانات المستخدم
+    path('generate_strategy/', user_views.generate_strategy, name='generate_strategy'),  # لإرسال prompt إلى ChatGPT واستقبال الاستراتيجية
+    path('view_strategy/', user_views.view_strategy, name='view_strategy'),  # لعرض الاستراتيجية للمستخدم
 ]
