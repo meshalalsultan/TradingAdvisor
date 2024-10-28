@@ -1,8 +1,7 @@
 from django.contrib import admin
 
-# strategies/admin.py
-from django.contrib import admin
-from .models import Strategy
+def register_models():
+    from .models import TradingStrategy  # استيراد النموذج داخل الدالة
+    admin.site.register(TradingStrategy)
 
-admin.site.register(Strategy)
-
+register_models()

@@ -1,24 +1,12 @@
-# recommendations/models.py
-
 from django.db import models
-from users.models import UserProfile
-from strategies.models import Strategy
+from django.utils import timezone
+from django.contrib.auth.models import User
 
 class Recommendation(models.Model):
-    user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
-    strategy = models.ForeignKey(Strategy, on_delete=models.CASCADE)
-    date_recommended = models.DateTimeField(auto_now_add=True)
-    notes = models.TextField(blank=True)
+    strategy = models.ForeignKey('strategies.TradingStrategy', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    recommendation_text = models.TextField(default="No recommendation")
+    created_at = models.DateTimeField(default=timezone.now)  # تعيين القيمة الافتراضية للتاريخ الحالي
 
-    @staticmethod
-    def generate_recommendations(user_profile):
-        # استخدام دالة التصفية من UserProfile للحصول على الاستراتيجيات المناسبة
-        recommended_strategies = user_profile.recommend_strategies()
-        recommendations = []
-        for strategy in recommended_strategies:
-            recommendation, created = Recommendation.objects.get_or_create(
-                user_profile=user_profile,
-                strategy=strategy
-            )
-            recommendations.append(recommendation)
-        return recommendations
+    def __str__(self):
+        return f"Recommendation for {self.user.username}"

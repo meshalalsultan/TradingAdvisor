@@ -6,48 +6,44 @@
     <title>Collect User Data</title>
 </head>
 <body>
-    <h1>Fill Out Your Trading Preferences</h1>
+    <h1>Collect User Data</h1>
     <form method="post" action="{% url 'collect_user_data' %}">
         {% csrf_token %}
         
-        <label for="experience_level">Experience Level:</label>
-        <select name="experience_level" id="experience_level" required>
+        <label>Experience Level:</label>
+        <select name="experience_level">
             <option value="beginner">Beginner</option>
             <option value="intermediate">Intermediate</option>
-            <option value="expert">Expert</option>
-        </select><br><br>
-        
-        <label for="trading_style">Trading Style:</label>
-        <select name="trading_style" id="trading_style" required>
+            <option value="advanced">Advanced</option>
+        </select><br>
+
+        <label>Trading Style:</label>
+        <select name="trading_style">
             <option value="day trading">Day Trading</option>
             <option value="swing trading">Swing Trading</option>
-            <option value="long-term">Long-term Investment</option>
-        </select><br><br>
-        
-        <label for="risk_preference">Risk Management Preference:</label>
-        <select name="risk_preference" id="risk_preference" required>
-            <option value="low">Low Risk</option>
-            <option value="medium">Medium Risk</option>
-            <option value="high">High Risk</option>
-        </select><br><br>
-        
-        <label for="preferred_assets">Preferred Assets:</label>
-        <input type="text" name="preferred_assets" id="preferred_assets" placeholder="e.g., Forex, Stocks, Crypto"><br><br>
-        
-        <label for="financial_goals">Financial Goals:</label>
-        <textarea name="financial_goals" id="financial_goals" placeholder="e.g., daily, weekly, or monthly profit goals"></textarea><br><br>
-        
-        <label for="trading_hours">Preferred Trading Hours:</label>
-        <input type="text" name="trading_hours" id="trading_hours" placeholder="e.g., 9 AM - 5 PM"><br><br>
-        
-        <label for="market_analysis_preference">Market Analysis Preference:</label>
-        <select name="market_analysis_preference" id="market_analysis_preference" required>
-            <option value="technical">Technical Analysis</option>
-            <option value="fundamental">Fundamental Analysis</option>
-            <option value="mixed">Mixed Analysis</option>
-        </select><br><br>
-        
-        <button type="submit">Submit</button>
+            <option value="long term">Long-term Investment</option>
+        </select><br>
+
+        <label>Risk Management:</label>
+        <input type="text" name="risk_preference"><br>
+
+        <label>Preferred Assets:</label>
+        <input type="text" name="preferred_assets"><br>
+
+        <label>Financial Goals:</label>
+        <input type="text" name="financial_goals"><br>
+
+        <label>Trading Hours:</label>
+        <input type="text" name="trading_hours"><br>
+
+        <label>Market Analysis Preference:</label>
+        <select name="market_analysis_preference">
+            <option value="technical">Technical</option>
+            <option value="fundamental">Fundamental</option>
+            <option value="both">Both</option>
+        </select><br>
+
+        <button type="submit">Next</button>
     </form>
 </body>
 </html>

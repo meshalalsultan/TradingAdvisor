@@ -1,9 +1,16 @@
-from django.shortcuts import render
-
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import UserProfile, TradingStrategy
-import openai  # تأكد من تثبيت مكتبة OpenAI واستخدام مفتاح API
+from .models import UserProfile
+from strategies.models import TradingStrategy
+import openai  # تأكد من إعداد مكتبة OpenAI ومفتاح API في الإعدادات
+
+@login_required
+def dashboard(request):
+    # جلب بيانات المستخدم وآخر استراتيجية
+    user_profile = UserProfile.objects.get(user=request.user)
+    strategy = TradingStrategy.objects.filter(user=request.user).last()  # الحصول على آخر استراتيجية للمستخدم
+    # تمرير البيانات إلى القالب
+    return render(request, 'users/dashboard.html', {'user_profile': user_profile, 'strategy': strategy})
 
 @login_required
 def collect_user_data(request):
@@ -21,7 +28,7 @@ def collect_user_data(request):
         user_profile.save()
         
         return redirect('generate_strategy')
-    return render(request, 'collect_user_data.html')
+    return render(request, 'users/collect_user_data.html')
 
 @login_required
 def generate_strategy(request):
@@ -55,5 +62,4 @@ def generate_strategy(request):
 @login_required
 def view_strategy(request):
     strategy = TradingStrategy.objects.filter(user=request.user).last()  # عرض آخر استراتيجية
-    return render(request, 'view_strategy.html', {'strategy': strategy})
-
+    return render(request, 'users/view_strategy.html', {'strategy': strategy})
